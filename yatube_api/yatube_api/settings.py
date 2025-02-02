@@ -21,9 +21,9 @@ INSTALLED_APPS = [
     'django_filters',
     'django_extensions',
     'rest_framework_simplejwt',
+    'djoser',
     'api',
     'posts',
-    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +92,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = ((BASE_DIR / 'static/'),)
+STATICFILES_DIRS = (BASE_DIR / 'static/')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
