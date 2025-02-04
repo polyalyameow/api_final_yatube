@@ -107,3 +107,7 @@ python3 manage.py runserver
   "group": 0
 }
 ```
+
+### Запуск проекта
+
+Автор: [Полина Басс Ларсон 😊](https://github.com/polyalyameow)

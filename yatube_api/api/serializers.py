@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from django.contrib.auth import get_user_model
 
 from posts.models import Post, Group, Comment, Follow
@@ -38,7 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class FollowSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         read_only=True,
-        slug_field="username", default=serializers.CurrentUserDefault(),
+        slug_field='username', default=serializers.CurrentUserDefault(),
     )
 
     following = serializers.SlugRelatedField(
@@ -46,8 +45,15 @@ class FollowSerializer(serializers.ModelSerializer):
         slug_field='username',)
 
     def validate_following(self, value):
-        if value == self.context["request"].user:
-            raise serializers.ValidationError()
+        request = self.context.get('request')
+        if request:
+            if value == request.user:
+                raise serializers.ValidationError(
+                    "Нельзя подписываться на себя")
+            if Follow.objects.filter(user=request.user,
+                                     following=value).exists():
+                raise serializers.ValidationError(
+                    "Вы уже подписаны на этого пользователя")
         return value
 
     class Meta:
