@@ -49,11 +49,11 @@ class FollowSerializer(serializers.ModelSerializer):
         if request:
             if value == request.user:
                 raise serializers.ValidationError(
-                    "Нельзя подписываться на себя")
+                    'Нельзя подписываться на себя')
             if Follow.objects.filter(user=request.user,
                                      following=value).exists():
                 raise serializers.ValidationError(
-                    "Вы уже подписаны на этого пользователя")
+                    'Вы уже подписаны на этого пользователя')
         return value
 
     class Meta:
